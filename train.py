@@ -6,6 +6,7 @@ from datetime import datetime
 from TimeSeriesDecomposition.Model import *
 from TimeSeriesDecomposition.get_stock_data import *
 from TimeSeriesDecomposition.SyntheticDataGeneration import *
+from sklearn.neighbors import KernelDensity
 def train_data(model,lr,epoches_trend,epoches_seasonality,batch_size,x_train,y_train):
     optimizer=torch.optim.Adam(params=model.parameters(),lr=lr)
     Lambda=0
@@ -39,6 +40,12 @@ def train_data(model,lr,epoches_trend,epoches_seasonality,batch_size,x_train,y_t
             l[-1]+=loss.detach()
         print(f'epoch:{epoch}/{epoches_seasonality} loss: {l[-1]}')
     plt.plot(l)
+    plt.show()
+    noise=y_train.detach()-model(x_train)[-1].detach()
+    kde = KernelDensity(kernel='gaussian', bandwidth=1, algorithm='ball_tree').fit(noise)
+    model.noise=kde
+    t=max(-noise.detach().numpy().min(),noise.detach().numpy().max())
+    plt.plot(np.e**kde.score_samples(np.arange(-t,t).reshape(-1,1)))
     plt.show()
 
 if __name__=='__main__':
