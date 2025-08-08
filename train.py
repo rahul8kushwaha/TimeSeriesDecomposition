@@ -45,7 +45,8 @@ if __name__=='__main__':
     model=NeuralDecomposition()
     # n=1000
     # x_train,y_train=torch.linspace(0,1,n,requires_grad=True).view(-1,1),get_synthetic_data(n).requires_grad_(True).view(-1,1)
-    x_train,y_train=get_stock_data('/Users/shivangikhushara/Downloads/Quote-Equity-SWIGGY-EQ-01-10-2024-to-02-08-2025.csv')
+    PATH=...
+    x_train,y_train=get_stock_data(PATH)
     inputs={'model':model,
             'lr':0.01,
             'epoches_trend':2000,
