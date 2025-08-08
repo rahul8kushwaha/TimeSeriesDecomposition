@@ -24,6 +24,9 @@ def train_data(model,lr,epoches_trend,epoches_seasonality,batch_size,x_train,y_t
             l[-1]+=loss.detach()
         print(f'epoch:{epoch}/{epoches_trend} loss: {l[-1]}')
     plt.plot(l)
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.savefig('trend_loss')
     plt.show()
     l=[]
     model.ind=1
@@ -40,12 +43,18 @@ def train_data(model,lr,epoches_trend,epoches_seasonality,batch_size,x_train,y_t
             l[-1]+=loss.detach()
         print(f'epoch:{epoch}/{epoches_seasonality} loss: {l[-1]}')
     plt.plot(l)
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.savefig('seasonality_loss')
     plt.show()
     noise=y_train.detach()-model(x_train)[-1].detach()
     kde = KernelDensity(kernel='gaussian', bandwidth=1, algorithm='ball_tree').fit(noise)
     model.noise=kde
     t=max(-noise.detach().numpy().min(),noise.detach().numpy().max())
     plt.plot(np.e**kde.score_samples(np.arange(-t,t).reshape(-1,1)))
+    plt.xlabel('residual')
+    plt.ylabel('likelihood')
+    plt.savefig('kernal_density_estimation_for_noise')
     plt.show()
 
 if __name__=='__main__':
@@ -69,4 +78,7 @@ if __name__=='__main__':
     # plt.plot(seasonality.detach())
     plt.plot(total.detach())
     plt.legend(['original data','trend','final_data'])
+    plt.xlabel('time')
+    plt.ylabel('response')
+    plt.savefig('comparison_with_original_data')
     plt.show()
