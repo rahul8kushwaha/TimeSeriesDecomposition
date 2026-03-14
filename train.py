@@ -65,8 +65,8 @@ if __name__=='__main__':
     x_train,y_train=get_stock_data(PATH)
     inputs={'model':model,
             'lr':0.01,
-            'epoches_trend':2000,
-            'epoches_seasonality':5000,
+            'epoches_trend':2001,
+            'epoches_seasonality':5001,
             'batch_size':20,
             'x_train':x_train,
             'y_train':y_train}
@@ -80,6 +80,6 @@ if __name__=='__main__':
     plt.legend(['original data','trend','final_data'])
     plt.xlabel('time')
     plt.ylabel('response')
-    plt.title('tread and original plots')
+    plt.title('tread, final and original plots')
     plt.savefig('comparison_with_original_data')
     plt.show()
