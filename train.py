@@ -80,5 +80,6 @@ if __name__=='__main__':
     plt.legend(['original data','trend','final_data'])
     plt.xlabel('time')
     plt.ylabel('response')
+    plt.title('tread and original plots')
     plt.savefig('comparison_with_original_data')
     plt.show()
