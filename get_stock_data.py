@@ -2,8 +2,8 @@ import pandas as pd
 from datetime import datetime
 import torch
 def get_stock_data(PATH):
-    # function for fetching stock data via yahoo finance
-    # can be changes later to get more fine grained data
+    # function for fetching stock data
+    # use this function to fetch daily closing, opening, low and high price for each date
     data=pd.read_csv(PATH)
     data.columns=list(map(lambda a:a.lower().lstrip().rstrip(),data.columns))
     data.date=data.date.apply(lambda a:datetime.strptime(a,'%d-%b-%Y'))
